@@ -1,0 +1,25 @@
+configuration:
+  mqtt_broker:
+    name: "MQTT Broker"
+    description: "The MQTT broker to connect to"
+  mqtt_port:
+    name: "MQTT Port"
+    description: "The port to connect to the MQTT broker"
+  mqtt_username:
+    name: "MQTT Username"
+    description: "The username to connect to the MQTT broker"
+  mqtt_password:
+    name: "MQTT Password"
+    description: "The password to connect to the MQTT broker"
+  sunsynk_username:
+    name: "Sunsynk Username"
+    description: "The username to connect to the Sunsynk Connect API"
+  sunsynk_password:
+    name: "Sunsynk Password"
+    description: "The password to connect to the Sunsynk Connect API"
+  sunsynk_inverter_serial:
+    name: "Sunsynk Inverter Serial"
+    description: "The serial number of your Sunsynk inverter"
+  enable_https:
+    name: "Enable HTTPS"
+    description: "If your Homeassistant server was setup to use HTTPS then you need to trun this setting on."

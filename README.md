@@ -1,1 +1,1 @@
-# SynkSolar
+# SolarConnect
