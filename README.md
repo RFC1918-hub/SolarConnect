@@ -25,4 +25,5 @@ sunsynk_username: "your_sunsynk_username"
 sunsynk_password: "your_sunsynk_password"
 sunsynk_inverter_serial: "your_inverter_serial"
 enable_https: false  # Set to true if using HTTPS
+refresh_time: 300 # Set the api refesh time
 ```
