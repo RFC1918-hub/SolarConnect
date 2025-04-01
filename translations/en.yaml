@@ -23,3 +23,6 @@ configuration:
   enable_https:
     name: "Enable HTTPS"
     description: "If your Homeassistant server was setup to use HTTPS then you need to trun this setting on."
+  refresh_time:
+    name: "Refresh Time"
+    description: "The time in seconds to refresh the data from the Sunsynk Connect API"

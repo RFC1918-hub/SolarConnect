@@ -19,6 +19,7 @@ options:
   sunsynk_password: ""
   sunsynk_inverter_serial: ""
   enable_https: false
+  refresh_time: 300
 schema:
   mqtt_broker: "str"
   mqtt_port: "int"
@@ -28,3 +29,4 @@ schema:
   sunsynk_password: "password"
   sunsynk_inverter_serial: "str"
   enable_https: "bool"
+  refresh_time: "int"

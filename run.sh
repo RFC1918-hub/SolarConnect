@@ -383,6 +383,6 @@ EOF
     mqtt_pub_sensor_text "Work Mode" "work_mode" "${WORK_MODE}"
 
     # Sleep for 5 minutes
-    sleep 300
+    sleep $(bashio::config "refresh_time")
 
 done
