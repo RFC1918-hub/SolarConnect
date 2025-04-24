@@ -53,10 +53,10 @@ while true; do
         local state_class=$6
         local topic="homeassistant/sensor/${name}"
         # payload name, unique_id, state_class, state_topic, unit_of_measurement, device_class
-        local payload="{\"name\": \"${display_name} ${name}\", \"unique_id\": \"sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}\", \"state_topic\": \"${topic}\", \"unit_of_measurement\": \"${unit}\", \"device_class\": \"${device_class}\", \"state_class\": \"${state_class}\"}"
+        local payload="{\"name\": \"${display_name}\", \"unique_id\": \"sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}\", \"state_topic\": \"${topic}\", \"unit_of_measurement\": \"${unit}\", \"device_class\": \"${device_class}\", \"state_class\": \"${state_class}\"}"
         # print the payload for debugging
         echo "Payload:"
-        echo "  Name: ${display_name} ${name}"
+        echo "  Name: ${display_name}"
         echo "  Unique ID: sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}"
         echo "  State Topic: ${topic}"
         echo "  Unit of Measurement: ${unit}"
@@ -74,10 +74,10 @@ while true; do
         local value=$3
         local topic="homeassistant/sensor/${name}"
         # payload name, unique_id, state_topic, value_template
-        local payload="{\"name\": \"${display_name} ${name}\", \"unique_id\": \"sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}\", \"state_topic\": \"${topic}\", \"value_template\": \"{{ value }}\"}"
+        local payload="{\"name\": \"${display_name}\", \"unique_id\": \"sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}\", \"state_topic\": \"${topic}\", \"value_template\": \"{{ value }}\"}"
         # print the payload for debugging
         echo "Payload:"
-        echo "  Name: ${display_name} ${name}"
+        echo "  Name: ${display_name}"
         echo "  Unique ID: sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}"
         echo "  State Topic: ${topic}"
         echo "  Value Template: {{ value }}"
