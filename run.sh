@@ -271,6 +271,6 @@ while true; do
     echo "Program Capacity 6: ${PROGRAM_CAPACITY6} %"
 
     # Wait for a while before checking again
-    sleep 10
+    sleep $(bashio::config "refresh_time")
 done
 
