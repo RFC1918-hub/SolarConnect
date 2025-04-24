@@ -51,7 +51,7 @@ while true; do
         local unit=$4
         local device_class=$5
         local state_class=$6
-        local topic="homeassistant/sensor/${name}"
+        local topic="homeassistant/sensor/sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}"
         # payload name, unique_id, state_class, state_topic, unit_of_measurement, device_class
         local payload="{\"name\": \"${display_name}\", \"unique_id\": \"sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}\", \"state_topic\": \"${topic}\", \"unit_of_measurement\": \"${unit}\", \"device_class\": \"${device_class}\", \"state_class\": \"${state_class}\"}"
         # print the payload for debugging
@@ -72,7 +72,7 @@ while true; do
         local display_name=$1
         local name=$2
         local value=$3
-        local topic="homeassistant/sensor/${name}"
+        local topic="homeassistant/sensor/sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}"
         # payload name, unique_id, state_topic, value_template
         local payload="{\"name\": \"${display_name}\", \"unique_id\": \"sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}\", \"state_topic\": \"${topic}\", \"value_template\": \"{{ value }}\"}"
         # print the payload for debugging
