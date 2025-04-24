@@ -161,6 +161,9 @@ while true; do
     PROGRAM_CAPACITY4=$(echo "$SETTINGS" | jq -r '.data.cap4'); if [ "$PROGRAM_CAPACITY4" == "null" ]; then PROGRAM_CAPACITY4=0; fi
     PROGRAM_CAPACITY5=$(echo "$SETTINGS" | jq -r '.data.cap5'); if [ "$PROGRAM_CAPACITY5" == "null" ]; then PROGRAM_CAPACITY5=0; fi
     PROGRAM_CAPACITY6=$(echo "$SETTINGS" | jq -r '.data.cap6'); if [ "$PROGRAM_CAPACITY6" == "null" ]; then PROGRAM_CAPACITY6=0; fi
+
+    ENERGY_MODE=$(echo "$SETTINGS" | jq -r '.data.energyMode'); if [ "$ENERGY_MODE" == "null" ]; then ENERGY_MODE=0; fi
+    WORK_MODE=$(echo "$SETTINGS" | jq -r '.data.sysWorkMode'); if [ "$WORK_MODE" == "null" ]; then WORK_MODE=0; fi
     
     # Publish the data to MQTT
     mqtt_publish "Battery Voltage" "battery_voltage" "${BATTERY_VOLTAGE}" "V" "voltage" "measurement"
@@ -215,6 +218,10 @@ while true; do
     mqtt_publish "Program Capacity 4" "program_capacity4" "${PROGRAM_CAPACITY4}" "%" "battery" "measurement"
     mqtt_publish "Program Capacity 5" "program_capacity5" "${PROGRAM_CAPACITY5}" "%" "battery" "measurement"
     mqtt_publish "Program Capacity 6" "program_capacity6" "${PROGRAM_CAPACITY6}" "%" "battery" "measurement"
+
+    mqtt_publish_text "Energy Mode" "energy_mode" "${ENERGY_MODE}"
+    mqtt_publish_text "Work Mode" "work_mode" "${WORK_MODE}"
+
     
     # Print the data for debugging
     echo "Battery Voltage: ${BATTERY_VOLTAGE} V"
@@ -270,6 +277,10 @@ while true; do
     echo "Program Capacity 5: ${PROGRAM_CAPACITY5} %"
     echo "Program Capacity 6: ${PROGRAM_CAPACITY6} %"
 
+    echo "Energy Mode: ${ENERGY_MODE}"
+    echo "Work Mode: ${WORK_MODE}"
+    echo "----------------------------------------"
+    
     # Wait for a while before checking again
     sleep $(bashio::config "refresh_time")
 done
