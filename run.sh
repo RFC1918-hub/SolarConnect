@@ -44,7 +44,7 @@ while true; do
 
     #### MQTT Helper Functions ####
 
-    function mqtt_pub_sensor {
+    function mqtt_publish() {
         local display_name=$1
         local name=$2
         local value=$3
