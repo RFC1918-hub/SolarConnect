@@ -88,7 +88,7 @@ EOF
 {
 "name": "${display_name}",
 "unique_id": "sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}",
-"state_topic": "${topic}state",
+"state_topic": "${topic}",
 "value_template": "{{ value }}"
 }
 EOF
