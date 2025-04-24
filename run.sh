@@ -88,7 +88,7 @@ EOF
 {
     "name": "${display_name}",
     "unique_id": "sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}",
-    "state_topic": "${topic}state",
+    "state_topic": "${topic}",
     "value_template": "{{ value }}"
 }
 EOF
@@ -102,7 +102,7 @@ EOF
         # Publish the payload to the MQTT broker
         mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" -t "${topic}/config" -m "${payload}"
         # Publish the value to the MQTT broker
-        mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" -t "${topic}/state" -m "${value}"
+        mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" -t "${topic}state" -m "${value}"
     }
 
     #### Main ####

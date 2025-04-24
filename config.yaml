@@ -1,6 +1,6 @@
 name: "SolarConnect"
 description: "Addon to integrate your Sunsynk Connect account into Home Assistant"
-version: "1.3.3"
+version: "1.4"
 slug: "solar_connect"
 init: false
 arch:
