@@ -82,14 +82,14 @@ EOF
         local display_name=$1
         local name=$2
         local value=$3
-        local topic="homeassistant/sensor/sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}"
-        # payload name, unique_id, state_topic, value_template
+
+        local topic="homeassistant/sensor/${name}"
         local payload=$(cat <<EOF
 {
-    "name": "${display_name}",
-    "unique_id": "sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}",
-    "state_topic": "${topic}",
-    "value_template": "{{ value }}"
+"name": "${display_name}",
+"unique_id": "sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}",
+"state_topic": "${topic}state",
+"value_template": "{{ value }}"
 }
 EOF
 )
@@ -101,7 +101,6 @@ EOF
         echo "  Value Template: {{ value }}"
         # Publish the payload to the MQTT broker
         mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" -t "${topic}/config" -m "${payload}"
-        # Publish the value to the MQTT broker
         mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" -t "${topic}state" -m "${value}"
     }
 
