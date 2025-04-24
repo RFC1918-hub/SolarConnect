@@ -128,7 +128,7 @@ while true; do
     GRID_FREQUENCY=$(echo "$GRIDDATA" | jq -r '.data.fac'); if [ "$GRID_FREQUENCY" == "null" ]; then GRID_FREQUENCY=0; fi
     TODAY_GRID_IMPORT=$(echo "$GRIDDATA" | jq -r '.data.etodayFrom'); if [ "$TODAY_GRID_IMPORT" == "null" ]; then TODAY_GRID_IMPORT=0; fi
     TODAY_GRID_EXPORT=$(echo "$GRIDDATA" | jq -r '.data.etodayTo'); if [ "$TODAY_GRID_EXPORT" == "null" ]; then TODAY_GRID_EXPORT=0; fi
-    GRID_STATUS=$(echo "$GRIDDATA" | jq -r '.data.status'); if [ "$GRID_STATUS" == "null" ]; then GRID_STATUS=0; fi
+    GRID_STATUS=$(echo "$GRIDDATA" | jq -r '.data.status'); if [ "$GRID_STATUS" == "0" ]; then GRID_STATUS="ONLINE"; elif [ "$GRID_STATUS" == "1" ]; then GRID_STATUS="OFFLINE"; elif [ "$GRID_STATUS" == "2" ]; then GRID_STATUS="FAULT"; fi
     # Load data
     LOAD_VOLTAGE=$(echo "$LOADDATA" | jq -r '.data.vip[0].volt'); if [ "$LOAD_VOLTAGE" == "null" ]; then LOAD_VOLTAGE=0; fi
     LOAD_CURRENT=$(echo "$LOADDATA" | jq -r '.data.vip[0].current'); if [ "$LOAD_CURRENT" == "null" ]; then LOAD_CURRENT=0; fi
@@ -162,8 +162,8 @@ while true; do
     PROGRAM_CAPACITY5=$(echo "$SETTINGS" | jq -r '.data.cap5'); if [ "$PROGRAM_CAPACITY5" == "null" ]; then PROGRAM_CAPACITY5=0; fi
     PROGRAM_CAPACITY6=$(echo "$SETTINGS" | jq -r '.data.cap6'); if [ "$PROGRAM_CAPACITY6" == "null" ]; then PROGRAM_CAPACITY6=0; fi
 
-    ENERGY_MODE=$(echo "$SETTINGS" | jq -r '.data.energyMode'); if [ "$ENERGY_MODE" == "null" ]; then ENERGY_MODE=0; fi
-    WORK_MODE=$(echo "$SETTINGS" | jq -r '.data.sysWorkMode'); if [ "$WORK_MODE" == "null" ]; then WORK_MODE=0; fi
+    ENERGY_MODE=$(echo $SETTINGS | jq -r '.data.energyMode'); if [ "$ENERGY_MODE" == "0" ]; then ENERGY_MODE="Priority Batt"; elif [ "$ENERGY_MODE" == "1" ]; then ENERGY_MODE="Priority Load"; fi
+    WORK_MODE=$(echo $SETTINGS | jq -r '.data.sysWorkMode'); if [ "$WORK_MODE" == "0" ]; then WORK_MODE="Allow Export"; elif [ "$WORK_MODE" == "1" ]; then WORK_MODE="Essentials"; elif [ "$WORK_MODE" == "2" ]; then WORK_MODE="Zero Export"; fi
     
     # Publish the data to MQTT
     mqtt_publish "Battery Voltage" "battery_voltage" "${BATTERY_VOLTAGE}" "V" "voltage" "measurement"
