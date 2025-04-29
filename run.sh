@@ -63,7 +63,6 @@ while true; do
 "unit_of_measurement": "${unit}",
 "device_class": "${device_class}",
 "state_class": "${state_class}",
-"icon": "mdi:gauge",
 "device": {
     "identifiers": ["sunsynk_${SUNSYNK_INVERTER_SERIAL}"],
     "name": "Sunsynk Inverter",
