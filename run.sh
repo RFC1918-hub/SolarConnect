@@ -53,30 +53,42 @@ while true; do
         local state_class=$6
 
         local topic="homeassistant/sensor/sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}"
+        local state_topic="${topic}/state"
+
         local payload=$(cat <<EOF
 {
 "name": "${display_name}",
 "unique_id": "sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}",
-"state_class": "${state_class}",
-"state_topic": "${topic}state",
+"state_topic": "${state_topic}",
+"unit_of_measurement": "${unit}",
 "device_class": "${device_class}",
-"unit_of_measurement": "${unit}"
+"state_class": "${state_class}",
+"icon": "mdi:gauge",
+"device": {
+    "identifiers": ["sunsynk_${SUNSYNK_INVERTER_SERIAL}"],
+    "name": "Sunsynk Inverter",
+    "manufacturer": "Sunsynk",
+    "model": "Inverter"
+}
 }
 EOF
 )
 
         # Print the payload for debugging
-        echo "Payload:"
-        echo "  Name: ${display_name}"
-        echo "  Unique ID: sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}"
-        echo "  State Topic: ${topic}"
-        echo "  Unit of Measurement: ${unit}"
-        echo "  Device Class: ${device_class}"
-        echo "  State Class: ${state_class}"
+        echo "Publishing MQTT discovery for ${display_name}"
+        echo "${payload}"
 
-        mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" -t "${topic}/config" -m "${payload}"
-        mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" -t "${topic}state" -m "${value}"
+        # Publish discovery config (retain it)
+        mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" \
+            -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" \
+            -t "${topic}/config" -m "${payload}" -r
+
+        # Publish the sensor state
+        mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" \
+            -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" \
+            -t "${state_topic}" -m "${value}"
     }
+
 
     function mqtt_publish_text() {
         local display_name=$1
@@ -84,25 +96,39 @@ EOF
         local value=$3
 
         local topic="homeassistant/sensor/${name}"
+        local state_topic="${topic}/state"
+
         local payload=$(cat <<EOF
 {
 "name": "${display_name}",
 "unique_id": "sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}",
-"state_topic": "${topic}",
-"value_template": "{{ value }}"
+"state_topic": "${state_topic}",
+"icon": "mdi:information-outline",
+"device": {
+    "identifiers": ["sunsynk_${SUNSYNK_INVERTER_SERIAL}"],
+    "name": "Sunsynk Inverter",
+    "manufacturer": "Sunsynk",
+    "model": "Inverter"
+}
 }
 EOF
 )
-        # print the payload for debugging
-        echo "Payload:"
-        echo "  Name: ${display_name}"
-        echo "  Unique ID: sunsynk_${SUNSYNK_INVERTER_SERIAL}_${name}"
-        echo "  State Topic: ${topic}"
-        echo "  Value Template: {{ value }}"
-        # Publish the payload to the MQTT broker
-        mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" -t "${topic}/config" -m "${payload}"
-        mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" -t "${topic}state" -m "${value}"
+
+        # Print the payload for debugging
+        echo "Publishing MQTT discovery for ${display_name}"
+        echo "${payload}"
+
+        # Publish discovery config (retain it)
+        mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" \
+            -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" \
+            -t "${topic}/config" -m "${payload}" -r
+
+        # Publish the state
+        mosquitto_pub -h "${MQTT_BROKER}" -p "${MQTT_PORT}" \
+            -u "${MQTT_USERNAME}" -P "${MQTT_PASSWORD}" \
+            -t "${state_topic}" -m "${value}"
     }
+
 
     #### Main ####
     # Login to the SunSynk inverter
