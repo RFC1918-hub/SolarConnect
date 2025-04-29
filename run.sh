@@ -170,7 +170,7 @@ EOF
     GRID_FREQUENCY=$(echo "$GRIDDATA" | jq -r '.data.fac'); if [ "$GRID_FREQUENCY" == "null" ]; then GRID_FREQUENCY=0; fi
     TODAY_GRID_IMPORT=$(echo "$GRIDDATA" | jq -r '.data.etodayFrom'); if [ "$TODAY_GRID_IMPORT" == "null" ]; then TODAY_GRID_IMPORT=0; fi
     TODAY_GRID_EXPORT=$(echo "$GRIDDATA" | jq -r '.data.etodayTo'); if [ "$TODAY_GRID_EXPORT" == "null" ]; then TODAY_GRID_EXPORT=0; fi
-    GRID_STATUS=$(echo "$GRIDDATA" | jq -r '.data.status'); if [ "$GRID_STATUS" == "0" ]; then GRID_STATUS="ONLINE"; elif [ "$GRID_STATUS" == "1" ]; then GRID_STATUS="OFFLINE"; elif [ "$GRID_STATUS" == "2" ]; then GRID_STATUS="FAULT"; fi
+    GRID_STATUS=$(echo "$GRIDDATA" | jq -r '.data.status'); if [ "$GRID_STATUS" == "0" ]; then GRID_STATUS="Online"; elif [ "$GRID_STATUS" == "1" ]; then GRID_STATUS="Offline"; elif [ "$GRID_STATUS" == "2" ]; then GRID_STATUS="Fault"; fi
     # Load data
     LOAD_VOLTAGE=$(echo "$LOADDATA" | jq -r '.data.vip[0].volt'); if [ "$LOAD_VOLTAGE" == "null" ]; then LOAD_VOLTAGE=0; fi
     LOAD_CURRENT=$(echo "$LOADDATA" | jq -r '.data.vip[0].current'); if [ "$LOAD_CURRENT" == "null" ]; then LOAD_CURRENT=0; fi
