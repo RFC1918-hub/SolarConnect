@@ -136,7 +136,7 @@ EOF
 
     if [ "${SUNSYNK_TOKEN}" == "null" ]; then
         echo "Failed to login to SunSynk Connect. Please check your username and password."
-        exit 1
+        continue
     fi
     echo "Logged in to SunSynk Connect."
 
